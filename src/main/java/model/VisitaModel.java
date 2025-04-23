@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class VisitaModel {
     
-    private String id;
+    private int id;
     private VisitaModel visitante;
        private ResidenteModel residente;
        private LocalDateTime fechaHora;
@@ -15,7 +15,7 @@ public class VisitaModel {
     public VisitaModel() {
     }
 
-    public VisitaModel(String id, VisitaModel visitante, ResidenteModel residente, LocalDateTime fechaHora, String motivo, boolean autorizada) {
+    public VisitaModel(int id, VisitaModel visitante, ResidenteModel residente, LocalDateTime fechaHora, String motivo, boolean autorizada) {
         this.id = id;
         this.visitante = visitante;
         this.residente = residente;
@@ -24,11 +24,11 @@ public class VisitaModel {
         this.autorizada = autorizada;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

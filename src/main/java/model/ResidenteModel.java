@@ -1,7 +1,7 @@
 
 package model;
 public class ResidenteModel {
-    private String id;
+    private int id;
     private String nombre;
     private String vivienda;
     private String telefono;
@@ -9,18 +9,18 @@ public class ResidenteModel {
     public ResidenteModel() {
     }
 
-    public ResidenteModel(String id, String nombre, String vivienda, String telefono) {
+    public ResidenteModel(int id, String nombre, String vivienda, String telefono) {
         this.id = id;
         this.nombre = nombre;
         this.vivienda = vivienda;
         this.telefono = telefono;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
