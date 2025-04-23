@@ -3,18 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package vistas;
+import dao.ResidenteDao;
+import dao.impl.ResidenteDaoImpl;
+import java.util.HashSet;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.ResidenteModel;
 
 /**
  *
  * @author LuisAmaya
  */
 public class Residente extends javax.swing.JInternalFrame {
+     private DefaultTableModel modeloTabla;
+     private  ResidenteDao residenteDao;
 
     /**
      * Creates new form Residente
      */
     public Residente() {
         initComponents();
+        residenteDao = new ResidenteDaoImpl();
+        modeloTabla = (DefaultTableModel)jtrmostarresidentes.getModel();
+        ;
+        
+        
+        
+    
+
+        
+       
     }
 
     /**
@@ -29,12 +47,10 @@ public class Residente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
-        txtapellido = new javax.swing.JTextField();
         txtvivienda = new javax.swing.JTextField();
         txttelefono = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -53,8 +69,6 @@ public class Residente extends javax.swing.JInternalFrame {
         jLabel2.setText("codigo:");
 
         jLabel3.setText("nombre:");
-
-        jLabel4.setText("apellido:");
 
         jLabel5.setText("vivienda:");
 
@@ -82,6 +96,11 @@ public class Residente extends javax.swing.JInternalFrame {
         jbactualizar.setText("Actualizar");
 
         jbcrear.setText("Crear");
+        jbcrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbcrearActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Eliminar");
 
@@ -100,7 +119,11 @@ public class Residente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtvivienda, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel6)
@@ -113,15 +136,7 @@ public class Residente extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtapellido, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                    .addComponent(txtvivienda)))))
+                                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,19 +166,15 @@ public class Residente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtvivienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtvivienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -171,7 +182,7 @@ public class Residente extends javax.swing.JInternalFrame {
                     .addComponent(jbactualizar)
                     .addComponent(jButton3)
                     .addComponent(jblimpiar))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,12 +195,26 @@ public class Residente extends javax.swing.JInternalFrame {
     private void jblimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jblimpiarActionPerformed
         txtcodigo.setText("");
         txtnombre.setText("");
-        txtapellido.setText("");
         txtvivienda.setText("");
         txttelefono.setText("");
         jblimpiar.setEnabled(true);
         
     }//GEN-LAST:event_jblimpiarActionPerformed
+
+    private void jbcrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbcrearActionPerformed
+      ResidenteModel residente = new ResidenteModel();
+      residente.setNombre(txtnombre.getText());
+      residente.setVivienda(txtvivienda.getText());
+      residente.setTelefono(txttelefono.getText());
+      
+      residenteDao.crear(residente);
+      crearResidenteModel();
+      
+        
+        
+        
+   
+    }//GEN-LAST:event_jbcrearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -197,7 +222,6 @@ public class Residente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
@@ -205,10 +229,41 @@ public class Residente extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbcrear;
     private javax.swing.JButton jblimpiar;
     private javax.swing.JTable jtrmostarresidentes;
-    private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txttelefono;
     private javax.swing.JTextField txtvivienda;
     // End of variables declaration//GEN-END:variables
+
+    private void crearResidenteModel() {
+        
+      modeloTabla.setRowCount(0);
+      List<ResidenteModel> residentes = residenteDao.listarTodos();
+      
+        for (ResidenteModel r: residentes) {
+            
+            Object[] fila = {
+                
+                r.getId(),
+                r.getNombre(),
+                    r.getTelefono(),
+                    r.getVivienda(),
+                            
+            
+        };
+            
+            modeloTabla.addRow(fila);
+            
+          
+           
+                    
+            
+        }
+       
+      
+        
+       
+    }
+
+  
 }
